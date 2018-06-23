@@ -89,9 +89,15 @@ class StringTest {
 	}
 
 	@ParameterizedTest
-	@CsvSource(value = { "abcd,AbcD", "1234dc,1234DC", "abcdefg,ABCDEFG","1,1" })
+	@CsvSource(value = { "abcd,AbcD", "1234dc,1234DC", "abcdefg,ABCDEFG", "1,1" })
 	void parameterized_test_lowercase(String expected, String actual) {
 		assertEquals(expected, actual.toLowerCase());
+	}
+
+	@ParameterizedTest(name = "at {0} length is {1}")
+	@CsvSource(value = { "abcd,4", "def,3" })
+	void test_length(String word, int expectedLength) {
+		assertEquals(expectedLength, word.length());
 	}
 
 }
