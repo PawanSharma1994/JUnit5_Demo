@@ -1,18 +1,22 @@
 package com.automation.junit5;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.time.Duration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-class StringTest {
+public class StringTest {
 
 	// Must be Static method
 	// runs before all methods execution
@@ -98,6 +102,51 @@ class StringTest {
 	@CsvSource(value = { "abcd,4", "def,3" })
 	void test_length(String word, int expectedLength) {
 		assertEquals(expectedLength, word.length());
+	}
+
+	@RepeatedTest(4) // annotation in junit5 to execute same scenario multiple times
+	void repeated_test() {
+		System.out.println("--Repeated test scenario--");
+	}
+
+	@Test // assertTimeout() is used for testing performance
+	@Disabled
+	void performanceTest() {
+		assertTimeout(Duration.ofSeconds(4), () -> {
+			for (int i = 0; i < 100000; i++) {
+				System.out.println(i + 1);
+			}
+		});
+	}
+
+	@Test
+	@Disabled // @Ignored in junit4
+	void disabledTest() {
+		System.out.println("Test to be disabled");
+	}
+
+	@Nested
+	class EmptyStringTests {
+
+		String str;
+
+		@BeforeEach
+		void set_empty_string() {
+			str = "";
+			System.out.println("Setting string to empty");
+		}
+		
+		@Test
+		@DisplayName("Verify length of Empty String")
+		void verify_emptyString_length() {
+			assertEquals(0,str.length());
+		}
+		
+		@Test
+		void verify_uppercase() {
+			assertEquals("",str.toUpperCase());
+		}
+
 	}
 
 }
