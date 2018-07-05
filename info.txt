@@ -1,4 +1,9 @@
 1. JUnit Platform = Building blocks
 2. JUnit Jupiter = new programming model + extension model + extensions - assertions , annotations
 3. JUnit Vintage = support for older JUnit versions (3 and 4)
+
+System Requirements:
+
+1. Eclipse Oxygen
+2. JDK 1.8
  
